@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-RQW8TQ4HB3"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+
+    gtag('config', 'G-RQW8TQ4HB3');
+  </script>
+
+  <meta content="NeRFiller: Completing Scenes via Generative 3D Inpainting" name="description" />
+  <meta content="NeRFiller: Completing Scenes via Generative 3D Inpainting" property="og:title" />
+  <meta content="NeRFiller: Completing Scenes via Generative 3D Inpainting" property="og:description" />
+  <meta content="https://ethanweber.me/nerfiller/static/images/overview.png" property="og:image" />
+  <meta content="NeRFiller: Completing Scenes via Generative 3D Inpainting" property="twitter:title" />
+  <meta content="NeRFiller: Completing Scenes via Generative 3D Inpainting" property="twitter:description" />
+  <meta content="https://ethanweber.me/nerfiller/static/images/overview.png" property="twitter:image" />
+  <meta property="og:type" content="website" />
+  <meta content="summary_large_image" name="twitter:card" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+
+  <title>NeRFiller: Completing Scenes via Generative 3D Inpainting</title>
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro" rel="stylesheet">
+
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+  <link rel="icon"
+    href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎨</text></svg>">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <script src="./static/js/index.js"></script>
+</head>
+
+<body>
+
+  <nav class="navbar" role="navigation" aria-label="main navigation">
+    <div class="navbar-brand">
+      <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+      </a>
+    </div>
+  </nav>
+
+
+  <section class="hero">
+    <div class="hero-body">
+      <div class="container is-max-widescreen">
+        <div class="columns is-centered">
+          <div class="column has-text-centered">
+            <h1 class="title is-1 publication-title" style="font-family: Noteworthy; font-weight: bold">NeRFiller:
+              Completing Scenes via Generative 3D Inpainting</h1>
+            <div class="is-size-5 publication-authors">
+              <span class="author-block">
+                <a href="https://ethanweber.me/">Ethan Weber</a><sup>1,2</sup>,</span>
+              <span class="author-block">
+                <a href="https://holynski.org/">Aleksander Holynski</a><sup>1,2</sup>,</span>
+              <span class="author-block">
+                <a href="https://varunjampani.github.io/">Varun Jampani</a><sup>1</sup>,
+              </span>
+              <br>
+              <span class="author-block">
+                <a href="https://sites.google.com/view/geekywanderer">Saurabh Saxena</a><sup>1</sup>,
+              </span>
+              <span class="author-block">
+                <a href="https://www.cs.cornell.edu/~snavely/">Noah Snavely</a><sup>1</sup>,
+              </span>
+              <span class="author-block">
+                <a href="https://abhishekkar.info/">Abhishek Kar</a><sup>1</sup>,
+              </span>
+              <span class="author-block">
+                <a href="https://people.eecs.berkeley.edu/~kanazawa/">Angjoo Kanazawa</a><sup>2</sup>
+              </span>
+            </div>
+
+            <div class="is-size-5 publication-authors">
+              <span class="author-block"><sup>1</sup>Google Research,</span>
+              <span class="author-block"><sup>2</sup>UC Berkeley</span>
+            </div>
+
+            <div class="column has-text-centered">
+              <div class="publication-links">
+                <span class="link-block">
+                  <a href="http://arxiv.org/abs/2312.04560" class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon">
+                      <i class="ai ai-arxiv"></i>
+                    </span>
+                    <span>arXiv</span>
+                  </a>
+                </span>
+                <!-- Code Link. -->
+                <span class="link-block">
+                  <a href="https://github.com/ethanweber/nerfiller"
+                    class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon">
+                      <i class="fab fa-github"></i>
+                    </span>
+                    <span>Code</span>
+                  </a>
+                </span>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="hero teaser">
+    <div class="container is-max-widescreen">
+      <div class="hero-body">
+        <h2 class="subtitle has-text-centered">
+          TLDR: <span class="dnerf">NeRFiller</span> completes missing regions in 3D scenes via an off-the-shelf 2D
+          generative inpainter.
+        </h2>
+        <video id="teaser" autoplay muted loop playsinline height="100%">
+          <source src="./static/videos/nerfiller_overview.mp4" type="video/mp4">
+        </video>
+      </div>
+    </div>
+  </section>
+
+
+  <section class="hero is-light">
+    <div class="hero-body">
+      <div class="content has-text-centered">
+        <p style="text-align: center">We mark missing regions in pink and use <span class="dnerf">NeRFiller</span> to
+          complete these areas, shown
+          on the right.
+        </p>
+      </div>
+      <div class="container">
+        <div id="results-carousel" class="carousel2 results-carousel">
+          <div class="item">
+            <video poster="" autoplay controls muted loop playsinline height="100%">
+              <source src="./static/videos/bear.mp4" type="video/mp4">
+            </video>
+            <br>
+            <video poster="" autoplay controls muted loop playsinline height="100%">
+              <source src="./static/videos/norway.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="item">
+            <video poster="" autoplay controls muted loop playsinline height="100%">
+              <source src="./static/videos/billiards.mp4" type="video/mp4">
+            </video>
+            <br>
+            <video poster="" autoplay controls muted loop playsinline height="100%">
+              <source src="./static/videos/dumptruck.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="item">
+            <video poster="" autoplay controls muted loop playsinline height="100%">
+              <source src="./static/videos/boot.mp4" type="video/mp4">
+            </video>
+            <br>
+            <video poster="" autoplay controls muted loop playsinline height="100%">
+              <source src="./static/videos/drawing.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="item">
+            <video poster="" autoplay controls muted loop playsinline height="100%">
+              <source src="./static/videos/office.mp4" type="video/mp4">
+            </video>
+            <br>
+            <video poster="" autoplay controls muted loop playsinline height="100%">
+              <source src="./static/videos/cat.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="item">
+            <video poster="" autoplay controls muted loop playsinline height="100%">
+              <source src="./static/videos/backpack.mp4" type="video/mp4">
+            </video>
+            <br>
+            <video poster="" autoplay controls muted loop playsinline height="100%">
+              <source src="./static/videos/turtle.mp4" type="video/mp4">
+            </video>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <section class="section">
+    <div class="container is-max-widescreen">
+      <!-- Abstract. -->
+      <div class="columns is-centered has-text-centered">
+        <div class="column is-full-width">
+          <h2 class="title is-3">Abstract</h2>
+          <div class="content has-text-justified">
+            <p>
+              We propose <span class="dnerf">NeRFiller</span>, an approach that completes missing portions of a 3D
+              capture via generative 3D inpainting using off-the-shelf 2D visual generative models. Often parts of a
+              captured 3D scene or object are missing due to mesh reconstruction failures or a lack of observations
+              (e.g., contact regions, such as the bottom of objects, or hard-to-reach areas). We approach this
+              challenging 3D inpainting problem by leveraging a 2D inpainting diffusion model. We identify a surprising
+              behavior of these models, where they generate more 3D consistent inpaints when images form a 2x2
+              grid, and show how to generalize this behavior to more than four images. We then present an iterative
+              framework to distill these inpainted regions into a single consistent 3D scene. In contrast to related
+              works, we focus on completing scenes rather than deleting foreground objects, and our approach does not
+              require tight 2D object masks or text. We compare our approach to relevant baselines adapted to our
+              setting on a variety of scenes, where <span class="dnerf">NeRFiller</span> creates the most 3D consistent
+              and plausible scene
+              completions.
+            </p>
+          </div>
+        </div>
+      </div>
+      <!--/ Abstract. -->
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container is-max-widescreen">
+      <!-- Abstract. -->
+      <div class="columns is-centered has-text-centered">
+        <div class="column is-full-width">
+          <h2 class="title is-3">Completing Large Unknown Regions</h2>
+          <div class="content has-text-justified">
+            <p>
+              Using <span class="dnerf">NeRFiller</span>, we can iteratively update a dataset to inpaint a scene. Our
+              methods are shown on the bottom right against various baselines. Click <a
+                href="./static/videos/3D_consistent_image_inpainting.mp4">here</a> to see all results of the
+              baselines on 10 datasets. "LaMask" and "SD Image Cond" are our adaptations of SPIn-NeRF to our problem
+              setting. "Inpaint + DU" is an adaptation of Instruct-NeRF2NeRF.
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="hero-body">
+        <div class="container is-max-widescreen">
+          <div id="blender-carousel" class="carousel1 results-carousel">
+            <div class="item">
+              <video poster="" id="steve" autoplay controls muted loop playsinline height="100%">
+                <source src="./static/videos/office_occluder.mp4" type="video/mp4">
+              </video>
+            </div>
+            <div class="item">
+              <video poster="" id="chair-tp" autoplay controls muted loop playsinline height="100%">
+                <source src="./static/videos/drawing_occluder.mp4" type="video/mp4">
+              </video>
+            </div>
+            <div class="item">
+              <video poster="" id="chair-tp" autoplay controls muted loop playsinline height="100%">
+                <source src="./static/videos/billiards_occluder.mp4" type="video/mp4">
+              </video>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+
+  <section class="section">
+    <div class="container is-max-widescreen">
+      <!-- Abstract. -->
+      <div class="columns is-centered has-text-centered">
+        <div class="column is-full-width">
+          <h2 class="title is-3">Interactive Comparisons</h2>
+          <div class="content has-text-centered" style="margin-bottom: 10px;">
+            <p>
+              Select a method and dataset to see the results. Ours is on the right.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- buttons to toggle videos with method. The buttons should be NeRFiller, Masked NeRF -->
+    <!-- buttons to toggle videos with dataset. The buttons should be bear, cat, etc. -->
+    <script>
+      // set method
+      // set dataset
+    </script>
+    <div class="container">
+      <div class="columns is-centered" style="margin-bottom: 0px;">
+        <div class="column is-full-width" style="padding: 0px">
+          <div class="content has-text-centered">
+            <button class="button is-rounded is-dark is-small" id="masked-nerf"
+              onclick="setMethod('masked-nerf')">Masked
+              NeRF</button>
+            <button class="button is-rounded is-dark is-small" id="lamask" onclick="setMethod('lamask')">LaMask</button>
+            <button class="button is-rounded is-dark is-small" id="sd-image-cond"
+              onclick="setMethod('sd-image-cond')">SD Image
+              Cond</button>
+            <button class="button is-rounded is-dark is-small" id="inpaint+du" onclick="setMethod('inpaint+du')">Inpaint
+              + DU</button>
+          </div>
+        </div>
+      </div>
+      <div class="column is-full-width" style="padding: 0px;">
+        <div class="column is-full-width">
+          <div class="content has-text-centered">
+            <button class="button is-rounded is-dark is-small" id="dumptruck" onclick="setDataset('dumptruck')">Dump
+              truck</button>
+            <button class="button is-rounded is-dark is-small" id="turtle"
+              onclick="setDataset('turtle')">Turtle</button>
+            <button class="button is-rounded is-dark is-small" id="drawing"
+              onclick="setDataset('drawing')">Drawing</button>
+            <button class="button is-rounded is-dark is-small" id="backpack"
+              onclick="setDataset('backpack')">Backpack</button>
+            <button class="button is-rounded is-dark is-small" id="bear" onclick="setDataset('bear')">Bear</button>
+            <button class="button is-rounded is-dark is-small" id="billiards"
+              onclick="setDataset('billiards')">Billiards</button>
+            <button class="button is-rounded is-dark is-small" id="norway"
+              onclick="setDataset('norway')">Norway</button>
+            <button class="button is-rounded is-dark is-small" id="cat" onclick="setDataset('cat')">Cat</button>
+            <button class="button is-rounded is-dark is-small" id="boot" onclick="setDataset('boot')">Boot</button>
+            <button class="button is-rounded is-dark is-small" id="office"
+              onclick="setDataset('office')">Office</button>
+          </div>
+        </div>
+      </div>
+      <div class="container is-max-widescreen">
+        <video id="comparison-video-0" autoplay muted loop playsinline height="100%">
+          <source src="./static/videos_comparison/dumptruck-masked-nerf.mp4" type="video/mp4">
+        </video>
+        <video id="comparison-video-1" autoplay muted loop playsinline hidden height="100%">
+          <source src="./static/videos_comparison/dumptruck-masked-nerf.mp4" type="video/mp4">
+        </video>
+      </div>
+      <script>
+        video0 = document.getElementById("comparison-video-0");
+        video1 = document.getElementById("comparison-video-1");
+        video0.addEventListener('loadedmetadata', function () {
+          if (activeVidID == 0) {
+            video0.play();
+            video0.hidden = false;
+            video1.hidden = true;
+          }
+        });
+        video1.addEventListener('loadedmetadata', function () {
+          if (activeVidID == 1) {
+            video1.play();
+            video0.hidden = true;
+            video1.hidden = false;
+          }
+        });
+        setComparisonVideo();
+      </script>
+    </div>
+
+  </section>
+
+
+  <section class="section">
+    <div class="container is-max-widescreen">
+      <!-- Abstract. -->
+      <div class="columns is-centered has-text-centered">
+        <div class="column is-full-width">
+          <h2 class="title is-3">Reference-Based Inpainting</h2>
+          <div class="content has-text-centered">
+            <p>
+              Using <span class="dnerf">NeRFiller</span>, you can inpaint one image and use it as a reference to guide
+              the 3D infilling.
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="hero-body">
+        <div class="container is-max-widescreen">
+          <div id="blender-carousel" class="carousel1 results-carousel">
+            <div class="item">
+              <video poster="" autoplay controls muted loop playsinline height="100%">
+                <source src="./static/videos/bear_reference.mp4" type="video/mp4">
+              </video>
+            </div>
+            <div class="item">
+              <video poster="" autoplay controls muted loop playsinline height="100%">
+                <source src="./static/videos/billiards_reference.mp4" type="video/mp4">
+              </video>
+            </div>
+            <div class="item">
+              <video poster="" autoplay controls muted loop playsinline height="100%">
+                <source src="./static/videos/cat_reference.mp4" type="video/mp4">
+              </video>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Method. -->
+  <section class="section">
+    <div class="container is-max-widescreen">
+      <div class="columns is-centered has-text-centered">
+        <div class="column is-full-width">
+          <h2 class="title is-3">Method</h2>
+          <div class="content has-text-justified">
+            <p>
+              We find that tiling images in a 2x2 grid produces more 3D consistent inpaints. We extend this "Grid Prior"
+              property to more than 4 images by averaging diffusion model predictions, and we show how to use it
+              iteratively in the NeRF framework with dataset updates. Please see <a href="http://arxiv.org/abs/2312.04560">the paper</a> for more
+              details.
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="hero-body">
+        <div class="container" style="display: flex;">
+          <img src="static/images/grid_prior.png" style="width: 55%; height: auto;">
+          <img src="static/images/inpaint_dataset_update.png" style="width: 45%; height: auto;">
+        </div>
+      </div>
+    </div>
+  </section>
+  <!--/ Method. -->
+
+  <!-- Multi-View Consistent Inpainting. -->
+  <section class="section">
+    <div class="container is-max-widescreen">
+      <!-- Abstract. -->
+      <div class="columns is-centered has-text-centered">
+        <div class="column is-full-width">
+          <h2 class="title is-3">Multi-View Consistent Inpainting</h2>
+          <div class="content has-text-justified">
+            <p>
+              With <span class="dnerf">NeRFiller</span>, we can inpaint many images jointly. We accomplish this by using
+              the our "Grid Prior" and "Joint Multi-View Inpainting" strategies. We compare various inpainting
+              strategies, where we inpaint once and then NeRF the scene to check for 3D consistency. Click <a
+                href="./static/videos/multi-view_consistent_inpainting_eval_split.mp4">here</a> to see all
+              results for all baselines on all 8 NeRF-synthetic scenes, for the test splits. "SD" stands for Stable
+              Diffusion. "Extended Attention" is introduced in <a href="https://tuneavideo.github.io/">Tune-A-Video</a>.
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="hero-body">
+        <div class="container is-max-widescreen">
+          <div id="blender-carousel" class="carousel1 results-carousel">
+            <div class="item">
+              <video poster="" id="chair-tp" autoplay controls muted loop playsinline height="100%">
+                <source src="./static/videos/lego_inpainting.mp4" type="video/mp4">
+              </video>
+            </div>
+            <div class="item">
+              <video poster="" id="steve" autoplay controls muted loop playsinline height="100%">
+                <source src="./static/videos/chair_inpainting.mp4" type="video/mp4">
+              </video>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!--/ Multi-View Consistent Inpainting. -->
+
+  <section class="section">
+    <div class="container is-max-widescreen">
+
+      <!-- Concurrent Work. -->
+      <div class="columns is-centered">
+        <div class="column is-full-width">
+          <h2 class="title is-3">Related Works</h2>
+
+          <div class="content has-text-justified">
+            <p>
+              There's a lot of work that we found relevant and useful while working on this project.
+            </p>
+            <p>
+              Relevant works include <a href="https://arxiv.org/abs/2104.09125">SPIn-NeRF</a>, <a
+                href="https://arxiv.org/abs/2305.15094">InpaintNeRF360</a>, <a
+                href="https://nianticlabs.github.io/nerf-object-removal/">"Removing Objects From Neural
+                Radiance Fields"</a>, <a href="https://arxiv.org/abs/2304.03763">"Clutter Detection and Removal in 3D
+                Scenes with View-Consistent Inpainting"</a>, and <a
+                href="https://ashmrz.github.io/reference-guided-3d/">"Reference-guided Controllable Inpainting of
+                Neural Radiance Fields"</a>. These works primarily focus on removing objects, while our work is for the
+              more general setting of scene completition. When we adapt SPIn-NeRF to our setting, we are implementing
+              it via inpainting the dataset images once and training with a patch-based perceptual LPIPS loss in the
+              <a href="https://docs.nerf.studio/">Nerfstudio</a> framework. "LaMask" inpaints once with <a
+                href="https://github.com/advimman/lama">LaMa</a> and "SD" inpaints
+              once with Stable
+              Diffusion.
+            </p>
+            <p>We were also inspired by <a href="https://yossigandelsman.github.io/visual_prompt/">"Visual
+                Prompting via Image Inpainting"</a> and <a href="https://multidiffusion.github.io/">MultiDiffusion</a>
+              for various ideas in our method.</p>
+            <p>
+              <a href="https://www.albertpumarola.com/research/D-NeRF/index.html">Instruct-NeRF2NeRF</a> is relevant for
+              how we do dataset updates, where we use dataset updates instead of <a
+                href="https://dreamfusion3d.github.io/">Score Distillation Sampling (SDS)</a>. We
+              differ by using an inpainting model, updating many images at a time, and linearly anneal the noise
+              schedule.
+            </p>
+            <p>
+              There is a related concurrent work called <a href="https://arxiv.org/abs/2312.03869">Inpaint3D</a>,
+              which
+              uses an inpainting model and SDS to inpaint a scene.
+            </p>
+          </div>
+        </div>
+      </div>
+      <!--/ Concurrent Work. -->
+
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container is-max-widescreen">
+
+      <!-- Concurrent Work. -->
+      <div class="columns is-centered">
+        <div class="column is-full-width">
+          <h2 class="title is-3">Acknowledgements</h2>
+
+          <div class="content has-text-justified">
+            <p>
+              This project is supported in part by IARPA DOI/IBC 140D0423C0035. We would like to thank Frederik Warburg,
+              David McAllister, Qianqian Wang, Matthew Tancik, Grace Luo, Dave Epstein, Riley Peterlinz for discussions
+              and technical support. We also thank Ruilong Li, Evonne Ng, Adam Rashid, Alexander Kristoffersen, Rohan
+              Mathur, Jonathan Zakharov for proofreading drafts and providing feedback.
+            </p>
+          </div>
+        </div>
+      </div>
+      <!--/ Concurrent Work. -->
+
+    </div>
+  </section>
+
+
+
+  <section class="section" id="BibTeX">
+    <div class="container is-max-widescreen content">
+      <h2 class="title">BibTeX</h2>
+      <p>Please consider citing our work if you find it useful.</p>
+      <pre><code>@inproceedings{weber2023nerfiller,
+  title = {NeRFiller: Completing Scenes via Generative 3D Inpainting},
+  author = {Ethan Weber and Aleksander Holynski and Varun Jampani and Saurabh Saxena and
+    Noah Snavely and Abhishek Kar and Angjoo Kanazawa},
+  booktitle = {arXiv},
+  year = {2023},
+}
+</code></pre>
+    </div>
+  </section>
+
+
+  <footer class="footer">
+    <div class="container">
+      <div class="content has-text-centered">
+        <a class="icon-link" href="./static/videos/nerfies_paper.pdf">
+          <i class="fas fa-file-pdf"></i>
+        </a>
+        <a class="icon-link" href="https://github.com/ethanweber" class="external-link" disabled>
+          <i class="fab fa-github"></i>
+        </a>
+      </div>
+      <div class="columns is-centered">
+        <div class="column is-8">
+          <div class="content">
+            <p>
+              We thank the <a href="https://nerfies.github.io/">Nerfies</a> authors for providing us
+              with this <a href="https://github.com/nerfies/nerfies.github.io">website template</a>.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+</body>
+
+</html>

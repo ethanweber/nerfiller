@@ -1,0 +1,50 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "nerfiller"
+version = "0.0.1"
+description = "NeRFiller package"
+requires-python = ">=3.8.0"
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Programming Language :: Python",
+]
+dependencies = [
+    "accelerate",
+    "diffusers==0.25.0",
+    "GPUtil",
+    "pytorch3d",
+    "pytorch-lightning",
+    "transformers",
+    "trimesh",
+    "timm>=0.6.7",
+    "omegaconf",
+    "openexr",
+    "albumentations==0.5.2",
+    "webdataset",
+    "easydict",
+]
+
+[tool.setuptools.packages.find]
+include = ["nerfiller*"]
+
+[project.entry-points.'nerfstudio.method_configs']
+nerfacto-nerfiller = "nerfiller.nerf.nerfiller_config:nerfacto_nerfiller_config"
+nerfacto-nerfiller-visualize = "nerfiller.nerf.nerfiller_config:nerfacto_nerfiller_visualize_config"
+grid-prior-du = "nerfiller.nerf.nerfiller_config:grid_prior_du_config"
+grid-prior-du-no-depth = "nerfiller.nerf.nerfiller_config:grid_prior_du_no_depth_config"
+grid-prior-du-random-noise = "nerfiller.nerf.nerfiller_config:grid_prior_du_random_noise_config"
+grid-prior-du-reference = "nerfiller.nerf.nerfiller_config:grid_prior_du_reference_config"
+individual-inpaint-du = "nerfiller.nerf.nerfiller_config:individual_inpaint_du_config"
+individual-inpaint-sds = "nerfiller.nerf.nerfiller_config:individual_inpaint_sds_config"
+individual-inpaint-once = "nerfiller.nerf.nerfiller_config:individual_inpaint_once_config"
+
+[project.scripts]
+# Note, add entrypoint name to nerfstudio/scripts/completions/install.py to include CLI completion
+ns-inpaint = "nerfiller.scripts.inpaint_nerfstudio_dataset:entrypoint"
+ns-launch = "nerfiller.scripts.launch:entrypoint"
+ns-metrics = "nerfiller.scripts.metrics:entrypoint"
+ns-dreambooth = "nerfiller.scripts.train_dreambooth_lora:entrypoint"
+ns-render-nerfiller = "nerfiller.scripts.render:entrypoint"
