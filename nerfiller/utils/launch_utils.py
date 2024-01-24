@@ -1,12 +1,46 @@
 import threading
 import time
+import socket
 from typing import List, Optional
 
 import GPUtil
 
 from nerfstudio.utils.scripts import run_command
-from nerfstudio.viewer.server.viewer_utils import get_free_port
-from nerfstudio.utils.scripts import run_command
+
+def is_port_open(port: int):
+    """Returns True if the port is open.
+
+    Args:
+        port: Port to check.
+
+    Returns:
+        True if the port is open, False otherwise.
+    """
+    try:
+        sock = socket.socket()
+        sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+        _ = sock.bind(("", port))
+        sock.close()
+        return True
+    except OSError:
+        return False
+
+def get_free_port(default_port: Optional[int] = None):
+    """Returns a free port on the local machine. Try to use default_port if possible.
+
+    Args:
+        default_port: Port to try to use.
+
+    Returns:
+        A free port on the local machine.
+    """
+    if default_port is not None:
+        if is_port_open(default_port):
+            return default_port
+    sock = socket.socket()
+    sock.bind(("", 0))
+    port = sock.getsockname()[1]
+    return port
 
 
 def get_free_ports(num: int) -> List[int]:
