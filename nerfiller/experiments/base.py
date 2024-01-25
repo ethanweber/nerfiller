@@ -118,7 +118,7 @@ class Train(ExperimentConfig):
                 dn = get_dataname(dataset_name, dataset_inpaint_method)
 
                 experiment_name = dataset_name + "-" + dataset_inpaint_method
-                command = f"ns-train {method} --data {dn} --experiment-name {experiment_name} --viewer.websocket-port=8082 --viewer.quit_on_train_completion True --vis viewer_beta --viewer.default-composite-depth False --pipeline.model.camera_optimizer.mode off --pipeline.datamanager.masks-on-gpu True --pipeline.datamanager.images-on-gpu True"
+                command = f"ns-train {method} --data {dn} --experiment-name {experiment_name} --viewer.websocket-port=8082 --viewer.quit_on_train_completion True --vis viewer --viewer.default-composite-depth False --pipeline.model.camera_optimizer.mode off --pipeline.datamanager.masks-on-gpu True --pipeline.datamanager.images-on-gpu True"
                 if dataset_name in synthetic_dataset_names:
                     background_color = "black" if dataset_name in synthetic_black_background_dataset_names else "white"
                     command += f" --pipeline.model.background_color {background_color} --pipeline.model.disable_scene_contraction True --pipeline.model.distortion_loss_mult 0.0"
