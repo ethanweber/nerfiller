@@ -18,7 +18,7 @@ Clone this repo.
 git clone git@github.com:ethanweber/nerfiller.git
 ```
 
-Create a conda environment that has Nerfstudio installed. We tested with `nerfstudio==0.3.4`. Then run,
+Create a conda environment that has Nerfstudio installed. We tested with `nerfstudio` greater than version `1.0.0`. Then run,
 
 ```bash
 pip install -e .
@@ -27,8 +27,6 @@ pip install -e .
 </details>
 
 <br>
-
-> For now, please use [this PR](https://github.com/nerfstudio-project/nerfstudio/pull/2647)'s branch of Nerfstudio. It has very minimal changes to work with our code. This should be merged into main shortly so we don't depend on a specific branch.
 
 # Download and process data
 
