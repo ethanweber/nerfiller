@@ -175,6 +175,6 @@ If you find this code or data useful for your research, please consider citing t
         title = {NeRFiller: Completing Scenes via Generative 3D Inpainting},
         author = {Ethan Weber and Aleksander Holynski and Varun Jampani and Saurabh Saxena and
             Noah Snavely and Abhishek Kar and Angjoo Kanazawa},
-        booktitle = {arXiv},
-        year = {2023},
+        booktitle = {CVPR},
+        year = {2024},
     }
