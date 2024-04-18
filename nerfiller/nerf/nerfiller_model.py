@@ -66,7 +66,7 @@ class NeRFillerModelConfig(NerfactoModelConfig):
     lpips_only_on_original: bool = False
     """Whether to do lpips loss only on the original valid regions."""
     start_depth_loss: int = 0
-    replace_white_with_max_depth = bool = False
+    replace_white_with_max_depth: bool = False
 
 
 class NeRFillerModel(NerfactoModel):
