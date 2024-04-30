@@ -15,6 +15,7 @@ dependencies = [
     "accelerate",
     "diffusers==0.25.0",
     "GPUtil",
+    "kornia",
     "pytorch3d",
     "pytorch-lightning",
     "transformers",
