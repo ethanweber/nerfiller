@@ -37,8 +37,8 @@ class BlenderDownload(DataDownload):
         """Download the blender dataset."""
         # TODO: give this code the same structure as download_nerfstudio
 
-        # https://drive.google.com/uc?id=18JxhpWD-4ZmuFKLzKlAw-w5PpzZxXOcG
-        blender_file_id = "18JxhpWD-4ZmuFKLzKlAw-w5PpzZxXOcG"
+        # https://drive.google.com/uc?id=152kFJoxu5x1fblDmJhhAI6Q5XhpopUHM
+        blender_file_id = "152kFJoxu5x1fblDmJhhAI6Q5XhpopUHM"
 
         final_path = save_dir / Path("blender")
         if os.path.exists(final_path):
